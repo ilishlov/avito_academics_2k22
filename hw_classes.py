@@ -1,6 +1,6 @@
 class CountVectorizer:
     def __init__(self):
-        self.__vocabulary = {}
+        self.vocabulary = {}
         self.matrix = []
 
     def fit_transform(self, corpus: list) -> list:
@@ -15,11 +15,11 @@ class CountVectorizer:
         for string in corpus:
             for word in string.split(" "):
                 word = word.lower()
-                if word not in self.__vocabulary:
-                    self.__vocabulary[word] = 0
+                if word not in self.vocabulary:
+                    self.vocabulary[word] = 0
 
         for string in corpus:
-            current_vocabulary = {key: 0 for key in self.__vocabulary}
+            current_vocabulary = {key: 0 for key in self.vocabulary}
             for word in string.split(" "):
                 word = word.lower()
                 current_vocabulary[word] += 1
@@ -30,14 +30,16 @@ class CountVectorizer:
         """
         Вывод всех слов, рассматриваемых в предложениях
         """
-        return list(self.__vocabulary.keys())
+        return list(self.vocabulary.keys())
 
 
-corpus = [
-    "Crock Pot Pasta Never boil pasta again",
-    "Pasta Pomodoro Fresh ingredients Parmesan to taste"
-]
-vectorizer = CountVectorizer()
-count_matrix = vectorizer.fit_transform(corpus)
-print(vectorizer.get_feature_names())
-print(*count_matrix, sep="\n")
+if __name__ == '__main__':
+    corpus = [
+        "Crock Pot Pasta Never boil pasta again",
+        "Pasta Pomodoro Fresh ingredients Parmesan to taste"
+    ]
+    vectorizer = CountVectorizer()
+    count_matrix = vectorizer.fit_transform(corpus)
+    print(vectorizer.get_feature_names())
+    print(*count_matrix, sep="\n")
+    
