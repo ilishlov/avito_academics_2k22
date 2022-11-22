@@ -37,17 +37,16 @@ class Advert(ColorizeMixin, DynamicAttributes):
         self.data = data
         super().__init__(self.data)
         if not hasattr(self, "title"):
-            raise ValueError
+            raise ValueError("Не указано название товара")
         if not hasattr(self, "price"):
             self.price = 0
         if self.price < 0:
-            raise ValueError
+            raise ValueError("Указана отрицательная цена")
             
     def __repr__(self) -> str:
         if issubclass(Advert, ColorizeMixin):
             return ColorizeMixin.__repr__(self)
-        else:
-            return f"{self.title} | {self.price} ₽"
+        return f"{self.title} | {self.price} ₽"
 
 
 if __name__ == "__main__":
